@@ -7,13 +7,19 @@ import java.sql.SQLException;
 public class DBUtil {
 
     private static final String URL =
-            "jdbc:mysql://localhost:3306/atm_db";
+            System.getenv("DB_URL") != null
+                    ? System.getenv("DB_URL")
+                    : "jdbc:mysql://localhost:3306/atm_db";
 
     private static final String USER =
-            "root";
+            System.getenv("DB_USER") != null
+                    ? System.getenv("DB_USER")
+                    : "root";
 
     private static final String PASSWORD =
-            "root";
+            System.getenv("DB_PASSWORD") != null
+                    ? System.getenv("DB_PASSWORD")
+                    : "root";
 
     public static Connection getConnection() throws SQLException {
 
