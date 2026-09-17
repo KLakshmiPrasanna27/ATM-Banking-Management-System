@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mini Statement - ATM Banking</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+    <style>
+
+        body {
+
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #0f172a,
+                #1e1b4b,
+                #312e81
+            );
+
+            color: white;
+        }
+
+
+        .statement-container {
+
+            max-width: 1100px;
+
+            margin: 50px auto;
+
+            padding: 20px;
+        }
+
+
+        .statement-header {
+
+            background: rgba(255, 255, 255, 0.10);
+
+            backdrop-filter: blur(15px);
+
+            border: 1px solid
+                    rgba(255, 255, 255, 0.15);
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .statement-header h2 {
+
+            margin-bottom: 5px;
+
+            font-weight: 600;
+        }
+
+
+        .statement-header p {
+
+            color: #cbd5e1;
+
+            margin-bottom: 0;
+        }
+
+
+        .table-container {
+
+            background: rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(15px);
+
+            border: 1px solid
+                    rgba(255, 255, 255, 0.12);
+
+            border-radius: 20px;
+
+            padding: 20px;
+
+            overflow-x: auto;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            min-width: 750px;
+        }
+
+
+        thead th {
+
+            color: #cbd5e1;
+
+            font-weight: 500;
+
+            padding: 15px;
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+        }
+
+
+        tbody td {
+
+            padding: 15px;
+
+            color: #f8fafc;
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.08);
+
+            vertical-align: middle;
+        }
+
+
+        tbody tr:hover {
+
+            background:
+                rgba(255, 255, 255, 0.05);
+        }
+
+
+        .status-success {
+
+            color: #4ade80;
+
+            font-weight: 600;
+        }
+
+
+        .status-failed {
+
+            color: #f87171;
+
+            font-weight: 600;
+        }
+
+
+        .activity-login {
+
+            color: #60a5fa;
+
+            font-weight: 600;
+        }
+
+
+        .activity-deposit {
+
+            color: #4ade80;
+
+            font-weight: 600;
+        }
+
+
+        .activity-withdrawal {
+
+            color: #fbbf24;
+
+            font-weight: 600;
+        }
+
+
+        .activity-pin {
+
+            color: #c084fc;
+
+            font-weight: 600;
+        }
+
+
+        .activity-logout {
+
+            color: #94a3b8;
+
+            font-weight: 600;
+        }
+
+
+        .amount {
+
+            font-weight: 600;
+        }
+
+
+        .no-data {
+
+            text-align: center;
+
+            padding: 40px;
+
+            color: #cbd5e1;
+        }
+
+
+        .back-btn {
+
+            margin-top: 20px;
+        }
+
+
+        .security-message {
+
+            margin-top: 20px;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="statement-container">
+
+
+    <!-- Header -->
+
+    <div class="statement-header">
+
+        <h2>
+            Mini Statement
+        </h2>
+
+        <p id="customerName">
+            Account Activity History
+        </p>
+
+    </div>
+
+
+    <!-- Activity Table -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Date &amp; Time
+                    </th>
+
+                    <th>
+                        Activity
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Details
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="activityTableBody">
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="no-data">
+
+                        Loading activity...
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- Back Button -->
+
+    <div class="text-center back-btn">
+
+        <button
+            class="btn btn-light px-4"
+            onclick="goBack()">
+
+            ← Back to Dashboard
+
+        </button>
+
+    </div>
+
+
+    <div class="security-message">
+
+        🔒 Keep your banking information and PIN secure.
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+    // =====================================================
+    // GET LOGIN INFORMATION
+    // =====================================================
+
+    const accountId =
+        localStorage.getItem("accountId");
+
+    const customerName =
+        localStorage.getItem("customerName");
+
+
+    // =====================================================
+    // DISPLAY CUSTOMER NAME
+    // =====================================================
+
+    if (customerName) {
+
+        document.getElementById(
+            "customerName"
+        ).textContent =
+            "Activity History - " +
+            customerName;
+    }
+
+
+    // =====================================================
+    // CHECK LOGIN INFORMATION
+    // =====================================================
+
+    if (!accountId) {
+
+        document.getElementById(
+            "activityTableBody"
+        ).innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="no-data">
+
+                    Please login again to view
+                    your statement.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    } else {
+
+        loadActivities();
+
+    }
+
+
+    // =====================================================
+    // LOAD COMPLETE ACTIVITY HISTORY
+    // =====================================================
+
+    function loadActivities() {
+
+        fetch(
+            "http://localhost:8075/activities/"
+            + accountId
+        )
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load activities"
+                );
+            }
+
+            return response.json();
+
+        })
+
+        .then(activities => {
+
+            displayActivities(activities);
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            document.getElementById(
+                "activityTableBody"
+            ).innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="no-data">
+
+                        Unable to load activity history.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+    }
+
+
+    // =====================================================
+    // FORMAT DATE AND TIME
+    // =====================================================
+
+    function formatDateTime(dateValue) {
+
+        const date =
+            new Date(dateValue);
+
+
+        /*
+         * Check whether the date is valid.
+         */
+
+        if (isNaN(date.getTime())) {
+
+            return dateValue;
+        }
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Asia/Kolkata means
+         * Indian Standard Time (IST).
+         *
+         * This prevents the browser from
+         * displaying UTC/Z time directly.
+         */
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                timeZone: "Asia/Kolkata",
+
+                day: "2-digit",
+
+                month: "short",
+
+                year: "numeric",
+
+                hour: "2-digit",
+
+                minute: "2-digit",
+
+                second: "2-digit",
+
+                hour12: true
+            }
+        );
+    }
+
+
+    // =====================================================
+    // DISPLAY ACTIVITIES
+    // =====================================================
+
+    function displayActivities(activities) {
+
+        const tableBody =
+            document.getElementById(
+                "activityTableBody"
+            );
+
+
+        tableBody.innerHTML = "";
+
+
+        if (activities.length === 0) {
+
+            tableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="no-data">
+
+                        No activity found.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+        }
+
+
+        activities.forEach(activity => {
+
+
+            const row =
+                document.createElement("tr");
+
+
+            // =================================================
+            // FORMAT DATE AND TIME AS IST
+            // =================================================
+
+            const formattedDate =
+                formatDateTime(
+                    activity.activityDate
+                );
+
+
+            // =================================================
+            // ACTIVITY CLASS
+            // =================================================
+
+            let activityClass = "";
+
+
+            if (
+                activity.activityType === "LOGIN"
+            ) {
+
+                activityClass =
+                    "activity-login";
+
+            }
+
+            else if (
+                activity.activityType === "DEPOSIT"
+            ) {
+
+                activityClass =
+                    "activity-deposit";
+
+            }
+
+            else if (
+                activity.activityType === "WITHDRAWAL"
+            ) {
+
+                activityClass =
+                    "activity-withdrawal";
+
+            }
+
+            else if (
+                activity.activityType === "PIN_CHANGE"
+            ) {
+
+                activityClass =
+                    "activity-pin";
+
+            }
+
+            else if (
+                activity.activityType === "LOGOUT"
+            ) {
+
+                activityClass =
+                    "activity-logout";
+            }
+
+
+            // =================================================
+            // STATUS CLASS
+            // =================================================
+
+            let statusClass = "";
+
+
+            if (
+                activity.status === "SUCCESS"
+            ) {
+
+                statusClass =
+                    "status-success";
+
+            } else {
+
+                statusClass =
+                    "status-failed";
+            }
+
+
+            // =================================================
+            // FORMAT AMOUNT
+            // =================================================
+
+            let amountText = "—";
+
+
+            if (activity.amount !== null) {
+
+                amountText =
+                    "₹" +
+                    Number(
+                        activity.amount
+                    ).toLocaleString(
+                        "en-IN",
+                        {
+                            minimumFractionDigits: 2,
+
+                            maximumFractionDigits: 2
+                        }
+                    );
+            }
+
+
+            // =================================================
+            // CREATE TABLE ROW
+            // =================================================
+
+            row.innerHTML = `
+
+                <td>
+                    ${formattedDate}
+                </td>
+
+                <td class="${activityClass}">
+
+                    ${formatActivityType(
+                        activity.activityType
+                    )}
+
+                </td>
+
+                <td class="${statusClass}">
+
+                    ${activity.status}
+
+                </td>
+
+                <td>
+
+                    ${activity.description}
+
+                </td>
+
+                <td class="amount">
+
+                    ${amountText}
+
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(row);
+
+        });
+
+    }
+
+
+    // =====================================================
+    // MAKE ACTIVITY NAMES USER-FRIENDLY
+    // =====================================================
+
+    function formatActivityType(type) {
+
+        if (type === "PIN_CHANGE") {
+
+            return "PIN Change";
+        }
+
+
+        if (type === "LOGIN") {
+
+            return "Login";
+        }
+
+
+        if (type === "LOGOUT") {
+
+            return "Logout";
+        }
+
+
+        if (type === "DEPOSIT") {
+
+            return "Deposit";
+        }
+
+
+        if (type === "WITHDRAWAL") {
+
+            return "Withdrawal";
+        }
+
+
+        if (type === "REGISTRATION") {
+
+            return "Registration";
+        }
+
+
+        return type;
+    }
+
+
+    // =====================================================
+    // BACK TO DASHBOARD
+    // =====================================================
+
+    function goBack() {
+
+        window.location.href =
+            "dashboard.html";
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

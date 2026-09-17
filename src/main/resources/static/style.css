@@ -1,0 +1,1076 @@
+/* =========================================
+GENERAL PAGE
+========================================= */
+
+* {
+  box-sizing: border-box;
+  }
+
+body {
+margin: 0;
+min-height: 100vh;
+font-family: "Segoe UI", Arial, sans-serif;
+
+
+background:
+    radial-gradient(
+        circle at 10% 20%,
+        rgba(0, 200, 255, 0.35),
+        transparent 30%
+    ),
+    radial-gradient(
+        circle at 90% 80%,
+        rgba(180, 0, 255, 0.35),
+        transparent 30%
+    ),
+    linear-gradient(
+        135deg,
+        #071a52,
+        #160b3d,
+        #061b38
+    );
+
+color: white;
+
+
+}
+
+/* =========================================
+BACKGROUND DECORATIONS
+========================================= */
+
+body::before {
+content: "";
+
+
+position: fixed;
+
+width: 350px;
+height: 350px;
+
+background: rgba(0, 204, 255, 0.18);
+
+border-radius: 50%;
+
+top: -120px;
+left: -100px;
+
+filter: blur(5px);
+
+animation:
+    floatOne 8s infinite alternate ease-in-out;
+
+pointer-events: none;
+
+
+}
+
+body::after {
+content: "";
+
+
+position: fixed;
+
+width: 400px;
+height: 400px;
+
+background: rgba(174, 0, 255, 0.18);
+
+border-radius: 50%;
+
+bottom: -160px;
+right: -100px;
+
+filter: blur(5px);
+
+animation:
+    floatTwo 10s infinite alternate ease-in-out;
+
+pointer-events: none;
+
+
+}
+
+/* =========================================
+BOOTSTRAP CONTAINER
+========================================= */
+
+.container {
+min-height: 100vh;
+
+
+display: flex;
+
+justify-content: center;
+align-items: center;
+
+position: relative;
+
+z-index: 2;
+
+
+}
+
+/* =========================================
+LOGIN CARD
+========================================= */
+
+.login-card {
+width: 420px;
+
+
+padding: 45px 40px;
+
+border-radius: 25px;
+
+background: rgba(255, 255, 255, 0.12);
+
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+
+border: 1px solid rgba(255, 255, 255, 0.25);
+
+box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+
+animation: cardAppear 1s ease;
+
+transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+
+}
+
+.login-card:hover {
+transform: translateY(-5px);
+
+
+box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.55),
+    0 0 30px rgba(0, 200, 255, 0.15);
+
+
+}
+
+/* =========================================
+ATM ICON
+========================================= */
+
+.login-card::before {
+content: "🏦";
+
+
+display: flex;
+
+justify-content: center;
+align-items: center;
+
+width: 75px;
+height: 75px;
+
+margin: 0 auto 20px;
+
+border-radius: 50%;
+
+font-size: 35px;
+
+background:
+    linear-gradient(
+        135deg,
+        #00c6ff,
+        #7b2cff
+    );
+
+box-shadow:
+    0 10px 30px rgba(0, 198, 255, 0.35);
+
+
+}
+
+/* =========================================
+LOGIN TITLES
+========================================= */
+
+.login-card h1 {
+text-align: center;
+
+
+font-size: 28px;
+
+font-weight: 700;
+
+letter-spacing: 1px;
+
+margin-bottom: 10px;
+
+background:
+    linear-gradient(
+        90deg,
+        #ffffff,
+        #66eaff,
+        #ffffff
+    );
+
+	-webkit-background-clip: text;
+	background-clip: text;
+-webkit-text-fill-color: transparent;
+
+
+}
+
+.login-card h2 {
+text-align: center;
+
+
+font-size: 18px;
+
+font-weight: 400;
+
+color: #c9d9ff;
+
+margin-bottom: 30px;
+
+
+}
+
+/* =========================================
+FORM LABELS
+========================================= */
+
+.form-label {
+color: #e8efff;
+
+
+font-weight: 600;
+
+font-size: 14px;
+
+margin-bottom: 8px;
+
+
+}
+
+/* =========================================
+INPUT FIELDS
+========================================= */
+
+.form-control {
+height: 52px;
+
+
+border-radius: 12px;
+
+border: 1px solid rgba(255, 255, 255, 0.25);
+
+background: rgba(255, 255, 255, 0.10);
+
+color: white;
+
+padding-left: 18px;
+
+font-size: 15px;
+
+transition: all 0.3s ease;
+
+
+}
+
+.form-control::placeholder {
+color: rgba(255, 255, 255, 0.55);
+}
+
+.form-control:focus {
+background: rgba(255, 255, 255, 0.16);
+
+
+color: white;
+
+border-color: #4deaff;
+
+box-shadow:
+    0 0 0 3px rgba(77, 234, 255, 0.15),
+    0 0 20px rgba(77, 234, 255, 0.15);
+
+outline: none;
+
+
+}
+
+/* =========================================
+PRIMARY BUTTON
+========================================= */
+
+.login-card .btn-primary {
+height: 52px;
+
+
+border: none;
+
+border-radius: 12px;
+
+margin-top: 10px;
+
+font-size: 16px;
+
+font-weight: 700;
+
+letter-spacing: 1px;
+
+background:
+    linear-gradient(
+        90deg,
+        #00c6ff,
+        #7b2cff
+    );
+
+box-shadow:
+    0 10px 25px rgba(0, 198, 255, 0.25);
+
+transition: all 0.3s ease;
+}
+
+.login-card .btn-primary:hover {
+transform: translateY(-2px);
+
+background:
+    linear-gradient(
+        90deg,
+        #7b2cff,
+        #00c6ff
+    );
+
+box-shadow:
+    0 15px 35px rgba(0, 198, 255, 0.40);
+
+
+}
+
+.login-card .btn-primary:active {
+transform: scale(0.98);
+}
+
+/* =========================================
+LOGIN FOOTER
+========================================= */
+
+.login-card::after {
+content: "🔒 Secure • Fast • Reliable Banking";
+
+display: block;
+
+text-align: center;
+
+margin-top: 25px;
+
+color: rgba(255, 255, 255, 0.60);
+
+font-size: 12px;
+
+letter-spacing: 0.5px;
+
+}
+
+/* =========================================
+WELCOME PAGE
+========================================= */
+
+.welcome-container {
+width: 900px;
+
+max-width: 95%;
+
+padding: 45px 50px;
+
+text-align: center;
+
+background: rgba(255, 255, 255, 0.10);
+
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+
+border: 1px solid rgba(255, 255, 255, 0.20);
+
+border-radius: 25px;
+
+box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45);
+
+position: relative;
+
+z-index: 3;
+
+animation: cardAppear 1s ease;
+
+
+}
+
+/* Welcome Icon */
+
+.bank-icon {
+font-size: 55px;
+
+
+margin-bottom: 15px;
+
+
+}
+
+/* Welcome Main Title */
+
+.main-title {
+margin: 0;
+
+
+font-size: 38px;
+
+font-weight: 700;
+
+letter-spacing: 1px;
+
+background:
+    linear-gradient(
+        90deg,
+        #ffffff,
+        #66eaff,
+        #ffffff
+    );
+
+	-webkit-background-clip: text;
+	background-clip: text;
+-webkit-text-fill-color: transparent;
+
+}
+
+.system-title {
+margin-top: 6px;
+
+
+font-size: 21px;
+
+font-weight: 400;
+
+color: #c9d9ff;
+
+
+}
+
+/* Welcome Message */
+
+.welcome-title {
+margin-top: 28px;
+
+
+margin-bottom: 10px;
+
+font-size: 23px;
+
+font-weight: 600;
+
+
+}
+
+.welcome-description {
+max-width: 620px;
+
+
+margin: 0 auto 30px;
+
+color: #cbd5e1;
+
+font-size: 15px;
+
+line-height: 1.6;
+
+
+}
+
+/* Choose Text */
+
+.choose-text {
+margin-bottom: 20px;
+
+
+color: #dbeafe;
+
+font-size: 15px;
+
+font-weight: 500;
+
+
+}
+
+/* =========================================
+WELCOME OPTION CARDS
+========================================= */
+
+.option-card {
+display: flex;
+
+
+flex-direction: column;
+
+align-items: center;
+
+justify-content: center;
+
+min-height: 245px;
+
+padding: 30px 25px;
+
+text-decoration: none;
+
+color: white;
+
+background: rgba(15, 23, 42, 0.70);
+
+border: 1px solid rgba(255, 255, 255, 0.18);
+
+border-radius: 20px;
+
+transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+
+
+}
+
+.option-card:hover {
+transform: translateY(-7px);
+
+
+color: white;
+
+background: rgba(30, 41, 59, 0.90);
+
+border-color: rgba(102, 234, 255, 0.50);
+
+box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.40),
+    0 0 25px rgba(0, 198, 255, 0.12);
+
+
+}
+
+/* Option Icon */
+
+.option-icon {
+width: 68px;
+
+
+height: 68px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+margin-bottom: 16px;
+
+font-size: 31px;
+
+background:
+    linear-gradient(
+        135deg,
+        rgba(0, 198, 255, 0.20),
+        rgba(123, 44, 255, 0.20)
+    );
+
+border: 1px solid rgba(255, 255, 255, 0.12);
+
+border-radius: 50%;
+
+
+}
+
+/* Option Heading */
+
+.option-card h3 {
+margin: 0;
+
+
+font-size: 21px;
+
+font-weight: 600;
+
+
+}
+
+/* Option Description */
+
+.option-card p {
+margin-top: 8px;
+
+
+margin-bottom: 20px;
+
+color: #94a3b8;
+
+font-size: 14px;
+
+
+}
+
+/* Option Button */
+
+.option-button {
+display: inline-flex;
+
+
+align-items: center;
+
+justify-content: center;
+
+min-width: 175px;
+
+padding: 11px 20px;
+
+border-radius: 9px;
+
+background:
+    linear-gradient(
+        90deg,
+        #00c6ff,
+        #7b2cff
+    );
+
+color: white;
+
+font-size: 13px;
+
+font-weight: 700;
+
+letter-spacing: 0.7px;
+
+box-shadow:
+    0 8px 20px rgba(0, 198, 255, 0.20);
+
+
+}
+
+/* =========================================
+SECURITY BOX
+========================================= */
+
+.security-box {
+display: flex;
+
+
+align-items: center;
+
+justify-content: center;
+
+gap: 12px;
+
+margin: 30px auto 0;
+
+padding: 14px 20px;
+
+max-width: 500px;
+
+text-align: left;
+
+background: rgba(15, 23, 42, 0.65);
+
+border: 1px solid rgba(255, 255, 255, 0.10);
+
+border-radius: 12px;
+
+color: #cbd5e1;
+
+}
+
+.security-box span {
+font-size: 22px;
+}
+
+.security-box strong {
+font-size: 14px;
+
+
+color: white;
+
+
+}
+
+.security-box small {
+color: #94a3b8;
+
+
+font-size: 12px;
+
+
+}
+
+/* =========================================
+WELCOME FOOTER
+========================================= */
+
+.footer-text {
+margin-top: 18px;
+
+
+margin-bottom: 0;
+
+color: #64748b;
+
+font-size: 12px;
+
+}
+
+/* =========================================
+DASHBOARD
+========================================= */
+
+.dashboard-container {
+min-height: 100vh;
+
+
+padding: 35px 7%;
+
+position: relative;
+
+z-index: 2;
+
+
+}
+
+/* Dashboard Header */
+
+.dashboard-header {
+display: flex;
+
+
+justify-content: space-between;
+
+align-items: center;
+
+margin-bottom: 60px;
+
+
+}
+
+.dashboard-header h1 {
+margin: 0;
+
+
+font-size: 32px;
+
+font-weight: 700;
+
+background:
+    linear-gradient(
+        90deg,
+        #ffffff,
+        #66eaff
+    );
+
+	-webkit-background-clip: text;
+	background-clip: text;
+-webkit-text-fill-color: transparent;
+
+
+}
+
+.dashboard-header p {
+margin-top: 8px;
+
+
+color: #b9c9ee;
+
+font-size: 16px;
+
+
+}
+
+/* Logout */
+
+.logout-button {
+border: 1px solid rgba(255, 255, 255, 0.30);
+
+
+background: rgba(255, 255, 255, 0.10);
+
+color: white;
+
+padding: 11px 20px;
+
+border-radius: 10px;
+
+cursor: pointer;
+
+transition: 0.3s;
+
+
+}
+
+.logout-button:hover {
+background: rgba(255, 80, 100, 0.25);
+
+
+transform: translateY(-2px);
+
+
+}
+
+/* Dashboard Title */
+
+.dashboard-title {
+text-align: center;
+
+margin-bottom: 40px;
+
+}
+
+.dashboard-title h2 {
+font-size: 30px;
+
+
+margin-bottom: 8px;
+
+
+}
+
+.dashboard-title p {
+color: #b9c9ee;
+
+
+margin: 0;
+
+
+}
+
+/* =========================================
+ATM DASHBOARD OPTIONS
+========================================= */
+
+.atm-options {
+display: grid;
+
+
+grid-template-columns:
+    repeat(auto-fit, minmax(240px, 1fr));
+
+gap: 25px;
+
+max-width: 1100px;
+
+margin: auto;
+
+
+}
+
+.atm-card {
+padding: 32px 25px;
+
+
+border-radius: 22px;
+
+background: rgba(255, 255, 255, 0.94);
+
+border: 2px solid rgba(255, 255, 255, 0.80);
+
+box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.30);
+
+cursor: pointer;
+
+transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+
+text-align: center;
+
+
+}
+
+.atm-card:hover {
+transform: translateY(-8px) scale(1.02);
+
+
+background: white;
+
+box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.40),
+    0 0 30px rgba(0, 200, 255, 0.30);
+
+
+}
+
+/* ATM Icon */
+
+.atm-icon {
+width: 70px;
+
+
+height: 70px;
+
+margin: 0 auto 20px;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+border-radius: 18px;
+
+font-size: 32px;
+
+background:
+    linear-gradient(
+        135deg,
+        #00c6ff,
+        #7b2cff
+    );
+
+box-shadow:
+    0 10px 25px rgba(0, 198, 255, 0.25);
+
+
+}
+
+.atm-card h3 {
+font-size: 20px;
+
+
+margin-bottom: 10px;
+
+color: #172554;
+
+font-weight: 700;
+
+
+}
+
+.atm-card p {
+color: #475569;
+
+
+font-size: 14px;
+
+line-height: 1.6;
+
+margin: 0;
+
+
+}
+
+/* =========================================
+ANIMATIONS
+========================================= */
+
+@keyframes cardAppear {
+
+from {
+    opacity: 0;
+
+    transform:
+        translateY(30px)
+        scale(0.95);
+}
+
+to {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+}
+
+@keyframes floatOne {
+
+from {
+    transform: translate(0, 0);
+}
+
+to {
+    transform: translate(80px, 50px);
+}
+
+}
+
+@keyframes floatTwo {
+
+
+from {
+    transform: translate(0, 0);
+}
+
+to {
+    transform: translate(-70px, -50px);
+}
+
+
+}
+
+/* =========================================
+MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+.welcome-container {
+    padding: 35px 20px;
+}
+
+.main-title {
+    font-size: 30px;
+}
+
+.system-title {
+    font-size: 18px;
+}
+
+.welcome-title {
+    font-size: 20px;
+}
+
+.option-card {
+    min-height: 215px;
+}
+
+.dashboard-container {
+    padding: 25px 20px;
+}
+
+.dashboard-header {
+    align-items: flex-start;
+
+    gap: 20px;
+}
+
+.dashboard-header h1 {
+    font-size: 25px;
+}
+
+.dashboard-title h2 {
+    font-size: 24px;
+}
+
+
+}
+
+@media (max-width: 500px) {
+
+
+.login-card {
+    width: 90%;
+
+    padding: 35px 25px;
+}
+
+.login-card h1 {
+    font-size: 23px;
+}
+
+
+}

@@ -1,0 +1,953 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Deposit Money</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(34,197,94,0.15),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(16,185,129,0.12),
+                    transparent 30%
+                ),
+                #07111f;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 25px;
+        }
+
+
+        .deposit-container {
+
+            width: 100%;
+
+            max-width: 620px;
+        }
+
+
+        /* Top bar */
+
+        .top-bar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 18px;
+        }
+
+
+        .back-btn {
+
+            border:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            background:
+                rgba(255,255,255,0.06);
+
+            color: #dce7fa;
+
+            padding: 9px 15px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+
+        .back-btn:hover {
+
+            background:
+                rgba(34,197,94,0.15);
+
+            color: white;
+        }
+
+
+        .logout-btn {
+
+            border: none;
+
+            background:
+                rgba(239,68,68,0.12);
+
+            color: #ffb4b4;
+
+            padding: 9px 15px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+        }
+
+
+        /* Main card */
+
+        .deposit-card {
+
+            background:
+                rgba(255,255,255,0.97);
+
+            color: #17233c;
+
+            border-radius: 25px;
+
+            padding: 38px;
+
+            box-shadow:
+                0 25px 60px
+                rgba(0,0,0,0.35);
+        }
+
+
+        /* Icon */
+
+        .icon {
+
+            width: 65px;
+
+            height: 65px;
+
+            border-radius: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            background: #dcfce7;
+
+            color: #16a34a;
+
+            margin-bottom: 20px;
+        }
+
+
+        .small-title {
+
+            color: #16a34a;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+        }
+
+
+        h1 {
+
+            margin-top: 7px;
+
+            margin-bottom: 8px;
+
+            font-size: 30px;
+
+            font-weight: 700;
+        }
+
+
+        .description {
+
+            color: #718096;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* Account information */
+
+        .account-info {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background: #f0fdf4;
+
+            border:
+                1px solid #bbf7d0;
+
+            border-radius: 14px;
+
+            padding: 15px 17px;
+
+            margin-bottom: 23px;
+        }
+
+
+        .account-label {
+
+            color: #64748b;
+
+            font-size: 11px;
+        }
+
+
+        .account-name {
+
+            color: #166534;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            margin-top: 3px;
+        }
+
+
+        .account-id {
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            text-align: right;
+        }
+
+
+        /* Amount */
+
+        .amount-label {
+
+            font-size: 13px;
+
+            font-weight: 650;
+
+            color: #334155;
+
+            margin-bottom: 8px;
+
+            display: block;
+        }
+
+
+        .amount-wrapper {
+
+            position: relative;
+
+            margin-bottom: 18px;
+        }
+
+
+        .rupee {
+
+            position: absolute;
+
+            left: 17px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 21px;
+
+            color: #16a34a;
+
+            font-weight: 700;
+
+            z-index: 2;
+        }
+
+
+        #amount {
+
+            width: 100%;
+
+            padding:
+                15px 15px 15px 42px;
+
+            border:
+                2px solid #e2e8f0;
+
+            border-radius: 13px;
+
+            font-size: 20px;
+
+            outline: none;
+
+            color: #17233c;
+
+            transition: 0.25s;
+        }
+
+
+        #amount:focus {
+
+            border-color: #22c55e;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(34,197,94,0.10);
+        }
+
+
+        #amount::placeholder {
+
+            color: #a0aec0;
+
+            font-size: 15px;
+        }
+
+
+        /* Quick amounts */
+
+        .quick-title {
+
+            font-size: 11px;
+
+            color: #718096;
+
+            margin-bottom: 9px;
+        }
+
+
+        .quick-buttons {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 8px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .quick-btn {
+
+            border:
+                1px solid #bbf7d0;
+
+            background: #f0fdf4;
+
+            color: #15803d;
+
+            padding: 9px 5px;
+
+            border-radius: 9px;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .quick-btn:hover {
+
+            background: #dcfce7;
+
+            border-color: #86efac;
+        }
+
+
+        /* Deposit button */
+
+        .deposit-btn {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #16a34a,
+                    #059669
+                );
+
+            color: white;
+
+            font-weight: 650;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+
+        .deposit-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(22,163,74,0.25);
+        }
+
+
+        /* Result */
+
+        .result {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 17px;
+
+            border-radius: 13px;
+
+            text-align: center;
+
+            font-size: 13px;
+        }
+
+
+        .success {
+
+            display: block;
+
+            background: #f0fdf4;
+
+            border:
+                1px solid #86efac;
+
+            color: #166534;
+        }
+
+
+        .error {
+
+            display: block;
+
+            background: #fef2f2;
+
+            border:
+                1px solid #fecaca;
+
+            color: #b91c1c;
+        }
+
+
+        /* Security */
+
+        .security {
+
+            margin-top: 20px;
+
+            background: #fff8e7;
+
+            border:
+                1px solid #f5d98b;
+
+            border-radius: 13px;
+
+            padding: 14px;
+
+            color: #765b16;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        @media (max-width: 500px) {
+
+            .deposit-card {
+
+                padding: 25px;
+            }
+
+
+            .quick-buttons {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="deposit-container">
+
+
+    <!-- TOP BAR -->
+
+    <div class="top-bar">
+
+        <button class="back-btn"
+                onclick="goDashboard()">
+
+            ← Dashboard
+
+        </button>
+
+
+        <button class="logout-btn"
+                onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+
+    <!-- MAIN CARD -->
+
+    <div class="deposit-card">
+
+
+        <div class="icon">
+            💵
+        </div>
+
+
+        <div class="small-title">
+            MONEY MANAGEMENT
+        </div>
+
+
+        <h1>
+            Deposit Money
+        </h1>
+
+
+        <p class="description">
+
+            Add money securely to your
+            ATM banking account.
+
+        </p>
+
+
+        <!-- ACCOUNT -->
+
+        <div class="account-info">
+
+
+            <div>
+
+                <div class="account-label">
+                    CUSTOMER
+                </div>
+
+
+                <div class="account-name"
+                     id="customerName">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div class="account-id">
+                    ACCOUNT ID
+                </div>
+
+
+                <div class="account-name"
+                     id="accountId">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- AMOUNT -->
+
+        <label class="amount-label"
+               for="amount">
+
+            Enter Deposit Amount
+
+        </label>
+
+
+        <div class="amount-wrapper">
+
+
+            <span class="rupee">
+                ₹
+            </span>
+
+
+            <input
+                type="number"
+                id="amount"
+                placeholder="Enter amount"
+                min="1"
+            >
+
+        </div>
+
+
+        <!-- QUICK AMOUNTS -->
+
+        <div class="quick-title">
+
+            Quick Select
+
+        </div>
+
+
+        <div class="quick-buttons">
+
+
+            <button class="quick-btn"
+                    onclick="setAmount(500)">
+
+                ₹500
+
+            </button>
+
+
+            <button class="quick-btn"
+                    onclick="setAmount(1000)">
+
+                ₹1,000
+
+            </button>
+
+
+            <button class="quick-btn"
+                    onclick="setAmount(5000)">
+
+                ₹5,000
+
+            </button>
+
+
+            <button class="quick-btn"
+                    onclick="setAmount(10000)">
+
+                ₹10,000
+
+            </button>
+
+
+        </div>
+
+
+        <!-- DEPOSIT -->
+
+        <button class="deposit-btn"
+                onclick="depositMoney()">
+
+            💵 Deposit Money
+
+        </button>
+
+
+        <!-- RESULT -->
+
+        <div id="result"
+             class="result">
+
+        </div>
+
+
+        <!-- SECURITY -->
+
+        <div class="security">
+
+            🛡️ <strong>Security Reminder:</strong>
+
+            Verify the amount before confirming
+            your deposit. Never share your PIN or
+            OTP with anyone.
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+    /* Get login information */
+
+    let accountId =
+        localStorage.getItem("accountId");
+
+
+    let customerName =
+        localStorage.getItem("customerName");
+
+
+    /* Check login */
+
+    if (!accountId) {
+
+        window.location.href =
+            "index.html";
+
+    }
+
+
+    /* Display account details */
+
+    document.getElementById(
+        "customerName"
+    ).innerText =
+        customerName || "Customer";
+
+
+    document.getElementById(
+        "accountId"
+    ).innerText =
+        accountId;
+
+
+    /* Quick amount */
+
+    function setAmount(amount) {
+
+        document.getElementById(
+            "amount"
+        ).value = amount;
+
+    }
+
+
+    /* Deposit */
+
+    function depositMoney() {
+
+
+        let amount =
+            document.getElementById(
+                "amount"
+            ).value;
+
+
+        let result =
+            document.getElementById(
+                "result"
+            );
+
+
+        /* Validate amount */
+
+        if (
+            amount === "" ||
+            Number(amount) <= 0
+        ) {
+
+            result.className =
+                "result error";
+
+            result.innerText =
+                "Please enter a valid deposit amount.";
+
+            return;
+
+        }
+
+
+        /* Call backend */
+
+        fetch("/deposit", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                accountId:
+                    Number(accountId),
+
+                amount:
+                    Number(amount)
+
+            })
+
+        })
+
+
+        .then(response => {
+
+
+            if (!response.ok) {
+
+                return response.json()
+                    .then(data => {
+
+                        throw new Error(
+                            data.message
+                        );
+
+                    });
+
+            }
+
+
+            return response.json();
+
+        })
+
+
+        .then(data => {
+
+
+            result.className =
+                "result success";
+
+
+            result.innerHTML =
+
+                "✓ Deposit successful!<br><br>" +
+
+                "Amount Deposited: ₹" +
+                Number(amount)
+                    .toLocaleString("en-IN") +
+
+                "<br>" +
+
+                "Updated Balance: ₹" +
+                Number(data.updatedBalance)
+                    .toLocaleString(
+                        "en-IN",
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }
+                    );
+
+
+            /* Clear input */
+
+            document.getElementById(
+                "amount"
+            ).value = "";
+
+        })
+
+
+        .catch(error => {
+
+
+            result.className =
+                "result error";
+
+
+            result.innerText =
+                error.message;
+
+        });
+
+    }
+
+
+    /* Dashboard */
+
+    function goDashboard() {
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+
+
+    /* Logout */
+
+    function logout() {
+
+        localStorage.clear();
+
+        window.location.href =
+            "index.html";
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>
